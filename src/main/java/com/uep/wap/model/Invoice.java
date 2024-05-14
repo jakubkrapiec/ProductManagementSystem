@@ -4,7 +4,7 @@ import java.util.Date;
 
 
 @Entity
-@Table(name = "Invoice")
+@Table()
 public class Invoice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +29,14 @@ public class Invoice {
     @Column(columnDefinition = "DECIMAL(10,2) DEFAULT 0.00")
     private double price;
 
-    //gettery i settery
+    public long getInvoiceId() {
+        return invoiceId;
+    }
+
+    public void setInvoiceId(long invoiceId) {
+        this.invoiceId = invoiceId;
+    }
+
     public String getInvoiceNumber() {
         return invoiceNumber;
     }

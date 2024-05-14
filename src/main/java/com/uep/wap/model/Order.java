@@ -14,7 +14,7 @@ public class Order {
 
     //ManyToOne relationship with Client
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "client_id")
+    @JoinColumn()
     private Client client;
 
     //ManyToMany relationship with Product

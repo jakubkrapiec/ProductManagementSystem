@@ -1,29 +1,15 @@
-package com.uep.wap.model;
+package com.uep.wap.dto;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
-@Entity
-@Table()
-public class Payment {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class PaymentDTO {
     private Long paymentId;
-
-    //OneToOne relationship with Order
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false, unique = true)
-    private Order order;
-
-    @Column(nullable = false)
+    private Long orderId;
     private BigDecimal amount;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
     private Date paymentDate;
 
-    //gettery i settery
+    // Getters and Setters
     public Long getPaymentId() {
         return paymentId;
     }
@@ -32,12 +18,12 @@ public class Payment {
         this.paymentId = paymentId;
     }
 
-    public Order getOrder() {
-        return order;
+    public Long getOrderId() {
+        return orderId;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 
     public BigDecimal getAmount() {

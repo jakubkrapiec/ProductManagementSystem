@@ -3,7 +3,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "Logistics")
+@Table()
 public class Logistics {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -11,12 +11,12 @@ public class Logistics {
 
     //ManyToOne relationship with warehouse
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "warehouseId", nullable = false)
+    @JoinColumn(nullable = false)
     private Warehouse warehouse;
 
     //OneToOne relationship with Order
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "orderId", nullable = false, unique = true)
+    @JoinColumn(nullable = false, unique = true)
     private Order order;
 
     @Temporal(TemporalType.TIMESTAMP)

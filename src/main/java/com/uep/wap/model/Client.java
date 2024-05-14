@@ -1,13 +1,10 @@
 package com.uep.wap.model;
-import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
-@Table(name = "Client")
+@Table()
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "CustomerHistory")
+@Table()
 public class CustomerHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,7 +13,7 @@ public class CustomerHistory {
 
     //ManyToOne relationship with Client
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "clientID", nullable = false)
+    @JoinColumn(nullable = false)
     private Client client;
 
     //ManyToMany relationship with Orders
