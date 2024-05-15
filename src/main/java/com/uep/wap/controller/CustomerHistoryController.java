@@ -17,8 +17,7 @@ public class CustomerHistoryController {
 
     @PostMapping
     public ResponseEntity<CustomerHistoryDTO> addCustomerHistory(@RequestBody CustomerHistoryDTO dto) {
-        customerHistoryService.addCustomerHistory(dto);
-        return ResponseEntity.ok(dto);
+        return ResponseEntity.ok(customerHistoryService.addCustomerHistory(dto));
     }
 
     @GetMapping
@@ -35,8 +34,7 @@ public class CustomerHistoryController {
 
     @PutMapping("/{id}")
     public ResponseEntity<CustomerHistoryDTO> updateCustomerHistory(@PathVariable Long id, @RequestBody CustomerHistoryDTO dto) {
-        customerHistoryService.updateCustomerHistory(id, dto);
-        return ResponseEntity.ok(dto);
+        return ResponseEntity.ok(customerHistoryService.updateCustomerHistory(id, dto));
     }
 
     @DeleteMapping("/{id}")

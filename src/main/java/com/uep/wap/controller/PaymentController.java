@@ -17,8 +17,7 @@ public class PaymentController {
 
     @PostMapping
     public ResponseEntity<PaymentDTO> addPayment(@RequestBody PaymentDTO paymentDTO) {
-        paymentService.addPayment(paymentDTO);
-        return ResponseEntity.ok(paymentDTO);
+        return ResponseEntity.ok(paymentService.addPayment(paymentDTO));
     }
 
     @GetMapping
@@ -35,8 +34,7 @@ public class PaymentController {
 
     @PutMapping("/{id}")
     public ResponseEntity<PaymentDTO> updatePayment(@PathVariable Long id, @RequestBody PaymentDTO paymentDTO) {
-        paymentService.updatePayment(id, paymentDTO);
-        return ResponseEntity.ok(paymentDTO);
+        return ResponseEntity.ok(paymentService.updatePayment(id, paymentDTO));
     }
 
     @DeleteMapping("/{id}")

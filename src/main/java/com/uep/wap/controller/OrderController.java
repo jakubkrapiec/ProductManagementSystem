@@ -27,9 +27,8 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<String> addOrder(@RequestBody OrderDTO orderDTO) {
-        orderService.addOrder(orderDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Order added!");
+    public ResponseEntity<OrderDTO> addOrder(@RequestBody OrderDTO orderDTO) {
+        return ResponseEntity.ok(orderService.addOrder(orderDTO));
     }
 
     @GetMapping(path = "/{id}")
@@ -45,8 +44,7 @@ public class OrderController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<String> updateOrder(@PathVariable long id, @RequestBody OrderDTO orderDTO) {
-        orderService.updateOrder(id, orderDTO);
-        return ResponseEntity.ok("Order updated!");
+    public ResponseEntity<OrderDTO> updateOrder(@PathVariable long id, @RequestBody OrderDTO orderDTO) {
+        return ResponseEntity.ok(orderService.updateOrder(id, orderDTO));
     }
 }

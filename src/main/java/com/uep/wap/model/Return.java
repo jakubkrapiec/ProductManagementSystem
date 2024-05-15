@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "Return_")
+@Table(name = "return_")
 public class Return{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,6 +59,3 @@ public class Return{
         this.status = status;
     }
 }
-
-
-

@@ -1,28 +1,15 @@
-package com.uep.wap.model;
-import javax.persistence.*;
-import java.util.ArrayList;
+package com.uep.wap.dto;
+
 import java.util.List;
-@Entity
-@Table()
-public class Supplier {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+public class SupplierDTO {
     private Long supplierId;
-
-    @Column(nullable = false, columnDefinition = "VARCHAR(255)")
     private String companyName;
-
-    @Column(columnDefinition = "VARCHAR(255)")
     private String contactName;
-
-    @Column(nullable = false,  columnDefinition = "VARCHAR(20)")
     private String phoneNumber;
+    private List<Long> productIds;
 
-    // OneToMany relationship with Product
-    @OneToMany(mappedBy = "supplier", orphanRemoval = true)
-    private List<Product> products = new ArrayList<>();
-
-    //getters and setters
+    // Getters and Setters
     public Long getSupplierId() {
         return supplierId;
     }
@@ -55,11 +42,11 @@ public class Supplier {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public List<Long> getProductIds() {
+        return productIds;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setProductIds(List<Long> productIds) {
+        this.productIds = productIds;
     }
 }

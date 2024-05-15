@@ -21,10 +21,10 @@ public class PaymentService {
     @Autowired
     private OrderRepository orderRepository;
 
-    public void addPayment(PaymentDTO paymentDTO) {
+    public PaymentDTO addPayment(PaymentDTO paymentDTO) {
         Order order = orderRepository.findById(paymentDTO.getOrderId()).orElseThrow(() -> new RuntimeException("Order not found"));
         Payment payment = PaymentMapper.toEntity(paymentDTO, order);
-        paymentRepository.save(payment);
+        return PaymentMapper.toDTO(paymentRepository.save(payment));
     }
 
     public Iterable<PaymentDTO> getAllPayments() {
@@ -38,12 +38,12 @@ public class PaymentService {
         return PaymentMapper.toDTO(payment);
     }
 
-    public void updatePayment(Long id, PaymentDTO paymentDTO) {
+    public PaymentDTO updatePayment(Long id, PaymentDTO paymentDTO) {
         Payment existingPayment = paymentRepository.findById(id).orElseThrow(() -> new RuntimeException("Payment not found"));
         Order order = orderRepository.findById(paymentDTO.getOrderId()).orElseThrow(() -> new RuntimeException("Order not found"));
         Payment updatedPayment = PaymentMapper.toEntity(paymentDTO, order);
         updatedPayment.setPaymentId(existingPayment.getPaymentId());
-        paymentRepository.save(updatedPayment);
+        return PaymentMapper.toDTO(paymentRepository.save(updatedPayment));
     }
 
     public void deletePayment(Long id) {

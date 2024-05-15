@@ -32,7 +32,7 @@ public class OrderService {
     @Autowired
     private ReturnRepository returnRepository;
 
-    public void addOrder(OrderDTO orderDTO) {
+    public OrderDTO addOrder(OrderDTO orderDTO) {
         Client client = clientRepository.findById(orderDTO.getClientID()).orElseThrow(() -> new RuntimeException("Client not found"));
         List<Product> products = StreamSupport.stream(productRepository.findAllById(orderDTO.getProductIDs()).spliterator(), false).collect(Collectors.toList());
         Payment payment = null;
@@ -48,7 +48,7 @@ public class OrderService {
             orderReturn = returnRepository.findById(orderDTO.getOrderReturnID()).orElseThrow(() -> new RuntimeException("Return not found"));
         }
         Order order = OrderMapper.toEntity(orderDTO, client, products, payment, shipment, orderReturn);
-        orderRepository.save(order);
+        return OrderMapper.toDTO(orderRepository.save(order));
     }
 
     public Iterable<OrderDTO> getAllOrders() {
@@ -62,7 +62,7 @@ public class OrderService {
         return OrderMapper.toDTO(order);
     }
 
-    public void updateOrder(long id, OrderDTO orderDTO) {
+    public OrderDTO updateOrder(long id, OrderDTO orderDTO) {
         Order existingOrder = orderRepository.findById(id).orElseThrow(() -> new RuntimeException("Order not found"));
 
         Client client = null;
@@ -88,7 +88,7 @@ public class OrderService {
 
         Order updatedOrder = OrderMapper.toEntity(orderDTO, client, products, payment, shipment, orderReturn);
         updatedOrder.setOrderID(existingOrder.getOrderID());
-        orderRepository.save(updatedOrder);
+        return OrderMapper.toDTO(orderRepository.save(updatedOrder));
     }
 
     public void deleteOrder(long id) {

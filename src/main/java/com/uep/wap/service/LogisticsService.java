@@ -27,13 +27,13 @@ public class LogisticsService {
     @Autowired
     private OrderRepository orderRepository;
 
-    public void addLogistics(LogisticsDTO logisticsDTO) {
+    public LogisticsDTO addLogistics(LogisticsDTO logisticsDTO) {
         Warehouse warehouse = warehouseRepository.findById(logisticsDTO.getWarehouseId())
                 .orElseThrow(() -> new RuntimeException("Warehouse not found"));
         Order order = orderRepository.findById(logisticsDTO.getOrderId())
                 .orElseThrow(() -> new RuntimeException("Order not found"));
         Logistics logistics = LogisticsMapper.toEntity(logisticsDTO, warehouse, order);
-        logisticsRepository.save(logistics);
+        return LogisticsMapper.toDTO(logisticsRepository.save(logistics));
     }
 
     public List<LogisticsDTO> getAllLogistics() {
@@ -48,7 +48,7 @@ public class LogisticsService {
         return LogisticsMapper.toDTO(logistics);
     }
 
-    public void updateLogistics(Long id, LogisticsDTO logisticsDTO) {
+    public LogisticsDTO updateLogistics(Long id, LogisticsDTO logisticsDTO) {
         Logistics existingLogistics = logisticsRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Logistics not found"));
 
@@ -59,7 +59,7 @@ public class LogisticsService {
 
         Logistics updatedLogistics = LogisticsMapper.toEntity(logisticsDTO, warehouse, order);
         updatedLogistics.setShipmentId(existingLogistics.getShipmentId());
-        logisticsRepository.save(updatedLogistics);
+        return LogisticsMapper.toDTO(logisticsRepository.save(updatedLogistics));
     }
 
     public void deleteLogistics(Long id) {

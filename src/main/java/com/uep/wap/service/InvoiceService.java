@@ -27,13 +27,13 @@ public class InvoiceService {
     @Autowired
     private OrderRepository orderRepository;
 
-    public void addInvoice(InvoiceDTO invoiceDTO) {
+    public InvoiceDTO addInvoice(InvoiceDTO invoiceDTO) {
         Order order = orderRepository.findById(invoiceDTO.getOrderId())
                 .orElseThrow(() -> new RuntimeException("Order not found"));
         Client client = clientRepository.findById(invoiceDTO.getClientId())
                 .orElseThrow(() -> new RuntimeException("Client not found"));
         Invoice invoice = InvoiceMapper.toEntity(invoiceDTO, order, client);
-        invoiceRepository.save(invoice);
+        return InvoiceMapper.toDTO(invoiceRepository.save(invoice));
     }
 
     public List<InvoiceDTO> getAllInvoices() {
@@ -48,7 +48,7 @@ public class InvoiceService {
         return InvoiceMapper.toDTO(invoice);
     }
 
-    public void updateInvoice(long id, InvoiceDTO invoiceDTO) {
+    public InvoiceDTO updateInvoice(long id, InvoiceDTO invoiceDTO) {
         Invoice existingInvoice = invoiceRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Invoice not found"));
 
@@ -59,7 +59,7 @@ public class InvoiceService {
 
         Invoice updatedInvoice = InvoiceMapper.toEntity(invoiceDTO, order, client);
         updatedInvoice.setInvoiceId(existingInvoice.getInvoiceId());
-        invoiceRepository.save(updatedInvoice);
+        return InvoiceMapper.toDTO(invoiceRepository.save(updatedInvoice));
     }
 
     public void deleteInvoice(long id) {

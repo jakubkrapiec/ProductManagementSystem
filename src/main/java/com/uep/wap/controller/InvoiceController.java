@@ -17,8 +17,7 @@ public class InvoiceController {
 
     @PostMapping
     public ResponseEntity<InvoiceDTO> addInvoice(@RequestBody InvoiceDTO invoiceDTO) {
-        invoiceService.addInvoice(invoiceDTO);
-        return ResponseEntity.ok(invoiceDTO);
+        return ResponseEntity.ok(invoiceService.addInvoice(invoiceDTO));
     }
 
     @GetMapping
@@ -35,8 +34,7 @@ public class InvoiceController {
 
     @PutMapping("/{id}")
     public ResponseEntity<InvoiceDTO> updateInvoice(@PathVariable Long id, @RequestBody InvoiceDTO invoiceDTO) {
-        invoiceService.updateInvoice(id, invoiceDTO);
-        return ResponseEntity.ok(invoiceDTO);
+        return ResponseEntity.ok(invoiceService.updateInvoice(id, invoiceDTO));
     }
 
     @DeleteMapping("/{id}")

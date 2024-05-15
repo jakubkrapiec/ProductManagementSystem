@@ -32,7 +32,7 @@ public class ClientService {
     @Autowired
     private CustomerHistoryRepository customerHistoryRepository;
 
-    public void addClient(ClientDTO dto) {
+    public ClientDTO addClient(ClientDTO dto) {
         List<Order> orders = StreamSupport.stream(orderRepository.findAllById(dto.getOrderIds()).spliterator(), false)
                 .collect(Collectors.toList());
         List<Invoice> invoices = StreamSupport.stream(invoiceRepository.findAllById(dto.getInvoiceIds()).spliterator(), false)
@@ -40,7 +40,7 @@ public class ClientService {
         List<CustomerHistory> customerHistories = StreamSupport.stream(customerHistoryRepository.findAllById(dto.getCustomerHistoryIds()).spliterator(), false)
                 .collect(Collectors.toList());
         Client client = ClientMapper.toEntity(dto, orders, invoices, customerHistories);
-        clientRepository.save(client);
+        return ClientMapper.toDTO(clientRepository.save(client));
     }
 
     public List<ClientDTO> getAllClients() {
@@ -55,7 +55,7 @@ public class ClientService {
         return ClientMapper.toDTO(client);
     }
 
-    public void updateClient(Long id, ClientDTO dto) {
+    public ClientDTO updateClient(Long id, ClientDTO dto) {
         Client existingClient = clientRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Client not found"));
 
@@ -68,7 +68,7 @@ public class ClientService {
 
         Client updatedClient = ClientMapper.toEntity(dto, orders, invoices, customerHistories);
         updatedClient.setClientID(existingClient.getClientID());
-        clientRepository.save(updatedClient);
+        return ClientMapper.toDTO(clientRepository.save(updatedClient));
     }
 
     public void deleteClient(Long id) {

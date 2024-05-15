@@ -70,5 +70,3 @@ public class Warehouse {
         this.shipments = shipments;
     }
 }
-
-

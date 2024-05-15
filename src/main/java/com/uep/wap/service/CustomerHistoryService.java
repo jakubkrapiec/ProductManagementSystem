@@ -32,7 +32,7 @@ public class CustomerHistoryService {
     @Autowired
     private ProductRepository productRepository;
 
-    public void addCustomerHistory(CustomerHistoryDTO dto) {
+    public CustomerHistoryDTO addCustomerHistory(CustomerHistoryDTO dto) {
         Client client = clientRepository.findById(dto.getClientId())
                 .orElseThrow(() -> new RuntimeException("Client not found"));
         List<Order> orders = StreamSupport.stream(orderRepository.findAllById(dto.getOrderIds()).spliterator(), false)
@@ -40,7 +40,7 @@ public class CustomerHistoryService {
         List<Product> products = StreamSupport.stream(productRepository.findAllById(dto.getProductIds()).spliterator(), false)
                 .collect(Collectors.toList());
         CustomerHistory customerHistory = CustomerHistoryMapper.toEntity(dto, client, orders, products);
-        customerHistoryRepository.save(customerHistory);
+        return CustomerHistoryMapper.toDTO(customerHistoryRepository.save(customerHistory));
     }
 
     public List<CustomerHistoryDTO> getAllCustomerHistories() {
@@ -55,7 +55,7 @@ public class CustomerHistoryService {
         return CustomerHistoryMapper.toDTO(customerHistory);
     }
 
-    public void updateCustomerHistory(Long id, CustomerHistoryDTO dto) {
+    public CustomerHistoryDTO updateCustomerHistory(Long id, CustomerHistoryDTO dto) {
         CustomerHistory existingCustomerHistory = customerHistoryRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("CustomerHistory not found"));
 
@@ -68,7 +68,7 @@ public class CustomerHistoryService {
 
         CustomerHistory updatedCustomerHistory = CustomerHistoryMapper.toEntity(dto, client, orders, products);
         updatedCustomerHistory.setCustomerHistoryID(existingCustomerHistory.getCustomerHistoryID());
-        customerHistoryRepository.save(updatedCustomerHistory);
+        return CustomerHistoryMapper.toDTO(customerHistoryRepository.save(updatedCustomerHistory));
     }
 
     public void deleteCustomerHistory(Long id) {

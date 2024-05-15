@@ -17,8 +17,7 @@ public class LogisticsController {
 
     @PostMapping
     public ResponseEntity<LogisticsDTO> addLogistics(@RequestBody LogisticsDTO logisticsDTO) {
-        logisticsService.addLogistics(logisticsDTO);
-        return ResponseEntity.ok(logisticsDTO);
+        return ResponseEntity.ok(logisticsService.addLogistics(logisticsDTO));
     }
 
     @GetMapping
@@ -35,8 +34,7 @@ public class LogisticsController {
 
     @PutMapping("/{id}")
     public ResponseEntity<LogisticsDTO> updateLogistics(@PathVariable Long id, @RequestBody LogisticsDTO logisticsDTO) {
-        logisticsService.updateLogistics(id, logisticsDTO);
-        return ResponseEntity.ok(logisticsDTO);
+        return ResponseEntity.ok(logisticsService.updateLogistics(id, logisticsDTO));
     }
 
     @DeleteMapping("/{id}")
